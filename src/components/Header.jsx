@@ -3,8 +3,6 @@ import { FaChevronDown, FaChevronUp, FaBars, FaTimes } from 'react-icons/fa';
 import seiLogo from '../assets/images/sei_logo.png';
 import { Link } from 'react-router-dom';
 
-
-
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -15,15 +13,17 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setMenuOpen(!menuOpen);
-    setActiveDropdown(null); // Close any open dropdown when opening mobile menu
-    document.body.style.overflow = menuOpen ? 'auto' : 'hidden'; // Prevent scrolling when mobile menu is open
+    setActiveDropdown(null);
+    document.body.style.overflow = menuOpen ? 'auto' : 'hidden';
   };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-black text-white px-6 py-4 flex justify-between items-center z-50 font-poppins">
-      {/* Logo Section */}
+      {/* Logo Section - Clickable to Home */}
       <div className="flex items-center space-x-3">
-        <img src={seiLogo} alt="Logo" className="h-20" />
+        <Link to="/">
+          <img src={seiLogo} alt="Logo" className="h-20 cursor-pointer" />
+        </Link>
       </div>
 
       {/* Mobile Menu Button */}
@@ -35,7 +35,9 @@ const Header = () => {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex space-x-6">
-        <a href="#" className="hover:text-green-500 font-medium text-xl">Home</a>
+        <Link to="/" className="hover:text-green-500 font-medium text-xl">
+          Home
+        </Link>
 
         {/* Bespoke Training */}
         <div className="relative">
@@ -86,7 +88,9 @@ const Header = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-black text-white px-6 py-4 md:hidden h-screen overflow-y-auto">
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">Home</a>
+          <Link to="/" className="block py-2 hover:text-green-500 font-medium text-xl">
+            Home
+          </Link>
 
           {/* Bespoke Training (Mobile) */}
           <div>
@@ -131,11 +135,14 @@ const Header = () => {
 
       {/* Account Buttons */}
       <div className="hidden md:flex items-center space-x-4">
-      <Link to="/login" className="hover:text-green-500 font-medium text-xl">Login</Link>
-      <Link to="/register" className="hover:text-green-500 font-medium text-xl">Register For a Course</Link>
+        <Link to="/login" className="hover:text-green-500 font-medium text-xl">
+          Login
+        </Link>
+        <Link to="/register" className="hover:text-green-500 font-medium text-xl">
+          Register For a Course
+        </Link>
       </div>
     </header>
-    
   );
 };
 
