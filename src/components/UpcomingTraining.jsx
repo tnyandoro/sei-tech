@@ -10,7 +10,7 @@ const UpcomingTraining = () => {
         time: "10:00 AM",
         location: "Virtual",
         seats: "7",
-        price: "$450.00",
+        price: "£450.00",
         mode: "Online",
       },
     ],
@@ -21,7 +21,7 @@ const UpcomingTraining = () => {
         time: "2:00 PM",
         location: "Virtual",
         seats: "2",
-        price: "$350.00",
+        price: "£350.00",
         mode: "Online",
       },
     ],
@@ -32,7 +32,7 @@ const UpcomingTraining = () => {
         time: "9:00 AM",
         location: "Virtual",
         seats: "10",
-        price: "$450.00",
+        price: "£450.00",
         mode: "Online",
       },
     ],
@@ -43,7 +43,7 @@ const UpcomingTraining = () => {
         time: "11:00 AM",
         location: "Virtual",
         seats: "11",
-        price: "$400.00",
+        price: "£400.00",
         mode: "Online",
       },
     ],
@@ -92,14 +92,14 @@ const UpcomingTraining = () => {
               ))}
               {Array.from({ length: 30 }).map((_, index) => {
                 const day = index + 1;
-                const date = `2025-01-${String(day).padStart(2, "0")}`;
+                const date = `2025-01-£{String(day).padStart(2, "0")}`;
                 const trainings = trainingData[date] || [];
                 const isToday = isCurrentDate(2025, 1, day); // Check if this date is today
 
                 return (
                   <div
                     key={index}
-                    className={`${
+                    className={`£{
                       isToday
                         ? "bg-[#2CBCC2] text-white" // Highlight current date
                         : trainings.length > 0
@@ -151,7 +151,7 @@ const UpcomingTraining = () => {
                     date: "Thu Jan 09 2025",
                     description: "Online",
                     seats: "7",
-                    price: "$450.00",
+                    price: "£450.00",
                     mode: "Online",
                   },
                   {
@@ -159,7 +159,7 @@ const UpcomingTraining = () => {
                     date: "Fri Jan 10 2025",
                     description: "Online",
                     seats: "2",
-                    price: "$350.00",
+                    price: "£350.00",
                     mode: "Online",
                   },
                   {
@@ -167,7 +167,7 @@ const UpcomingTraining = () => {
                     date: "Tue Jan 14 2025",
                     description: "Online",
                     seats: "10",
-                    price: "$450.00",
+                    price: "£450.00",
                     mode: "Online",
                   },
                   {
@@ -175,7 +175,7 @@ const UpcomingTraining = () => {
                     date: "Wed Jan 15 2025",
                     description: "Online",
                     seats: "2",
-                    price: "$350.00",
+                    price: "£350.00",
                     mode: "Online",
                   },
                   {
@@ -183,7 +183,7 @@ const UpcomingTraining = () => {
                     date: "Wed Jan 22 2025",
                     description: "Online",
                     seats: "11",
-                    price: "$400.00",
+                    price: "£400.00",
                     mode: "Online",
                   },
                 ].map((training, index) => (
