@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import Services from './components/Services';
-import Testimonials from "./components/Testimonials";
+import Testimonials from "./components/Testimonials";  // ✅ Kept the component import the same
 import Footer from "./components/Footer";
 import PopupModal from "./components/PopupModal";
 import Expertise from "./components/Expertise";
@@ -17,6 +17,7 @@ import Products from "./pages/ProductsPage/Products.jsx";
 import AboutUs from "./pages/AboutUsPage/AboutUs.jsx";
 import ELearning from './pages/ElearningPage/Elearning.jsx';
 import ContactUs from './pages/ContactUsPage/ContactUs.jsx';
+import TestimonialsPage from "./pages/TestimonialsPage/Testimonials.jsx"; // ✅ Renamed Page Import
 import './styles/input.css';
 
 function App() {
@@ -38,21 +39,21 @@ function App() {
               <ExpertServices />
               <BookACourse />
               <UpcomingTraining />
-              <Testimonials />
+              <Testimonials />  {/* ✅ Component for home page */}
               <TrainingCourses />
               <Footer />
             </>
           } 
         />
 
-        {/* Register Page */}
+        {/* Other Pages */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/products" element={<Products />} />
         <Route path="/e-learning" element={<ELearning />} />
         <Route path="/contact-us" element={<ContactUs />} />
-        {/* Add more routes here as needed */}
+        <Route path="/testimonials" element={<TestimonialsPage />} />  {/* ✅ Updated Page Name */}
       </Routes>
     </Router>
   );
