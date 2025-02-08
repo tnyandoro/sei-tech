@@ -35,7 +35,7 @@ const Header = () => {
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex space-x-6">
-        <Link to="/" className="hover:text-green-500 font-medium text-xl">
+        <Link to="/" className="hover:text-green-500 font-medium text-sm">
           Home
         </Link>
 
@@ -43,9 +43,9 @@ const Header = () => {
         <div className="relative">
           <button
             onClick={() => toggleDropdown('bespoke')}
-            className="hover:text-green-500 flex items-center font-medium text-xl"
+            className="hover:text-green-500 flex items-center font-medium text-sm"
           >
-            Bespoke Training {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
+            Training {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
           </button>
           {activeDropdown === 'bespoke' && (
             <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
@@ -62,7 +62,7 @@ const Header = () => {
         <div className="relative">
           <button
             onClick={() => toggleDropdown('compliance')}
-            className="hover:text-green-500 flex items-center font-medium text-xl"
+            className="hover:text-green-500 flex items-center font-medium text-sm"
           >
             Compliance Services {activeDropdown === 'compliance' ? <FaChevronUp /> : <FaChevronDown />}
           </button>
@@ -77,24 +77,24 @@ const Header = () => {
           )}
         </div>
 
-        <a href="#" className="hover:text-green-500 font-medium text-xl">Upcoming Trainings</a>
-        <a href="#" className="hover:text-green-500 font-medium text-xl">About Us</a>
-        <a href="#" className="hover:text-green-500 font-medium text-xl">Products</a>
-        <a href="#" className="hover:text-green-500 font-medium text-xl">E-learning</a>
-        <a href="#" className="hover:text-green-500 font-medium text-xl">Testimonials</a>
-        <a href="#" className="hover:text-green-500 font-medium text-xl">Contacts</a>
+        <a href="#" className="hover:text-green-500 font-medium text-sm">Upcoming Trainings</a>
+        <Link to="/about-us" className="hover:text-green-400">About Us</Link>
+        <Link to="/products" className="hover:text-green-400">Products</Link>
+        <Link to="/e-learning" className="hover:text-green-400">E-Learning</Link>
+        <Link to="/testimonials" className="hover:text-green-400">Testimonial</Link>
+        <Link to="/contact-us" className="hover:text-green-400">Contact Us</Link>
       </nav>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-black text-white px-6 py-4 md:hidden h-screen overflow-y-auto">
-          <Link to="/" className="block py-2 hover:text-green-500 font-medium text-xl">
+          <Link to="/" className="block py-2 hover:text-green-500 font-medium text-sm">
             Home
           </Link>
 
           {/* Bespoke Training (Mobile) */}
           <div>
-            <button onClick={() => toggleDropdown('bespoke')} className="hover:text-green-500 flex items-center w-full font-medium text-xl">
+            <button onClick={() => toggleDropdown('bespoke')} className="hover:text-green-500 flex items-center w-full font-medium text-sm">
               Bespoke Training {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
             </button>
             {activeDropdown === 'bespoke' && (
@@ -110,7 +110,7 @@ const Header = () => {
 
           {/* Compliance Services (Mobile) */}
           <div>
-            <button onClick={() => toggleDropdown('compliance')} className="hover:text-green-500 flex items-center w-full font-medium text-xl">
+            <button onClick={() => toggleDropdown('compliance')} className="hover:text-green-500 flex items-center w-full font-medium text-sm">
               Compliance Services {activeDropdown === 'compliance' ? <FaChevronUp /> : <FaChevronDown />}
             </button>
             {activeDropdown === 'compliance' && (
@@ -124,21 +124,21 @@ const Header = () => {
             )}
           </div>
 
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">Upcoming Trainings</a>
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">Products</a>
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">E-learning</a>
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">Testimonials</a>
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">About Us</a>
-          <a href="#" className="block py-2 hover:text-green-500 font-medium text-xl">Contacts</a>
+          {/* <a href="#" className="block py-2 hover:text-green-500 font-medium text-sm">Upcoming Trainings</a> */}
+          {/* <Link to="/products" className="hover:text-green-500 font-medium text-sm">Products</Link> */}
+          {/* <Link to="/e-learning" className="hover:text-green-400">E-Learning</Link> */}
+          {/* <a href="#" className="block py-2 hover:text-green-500 font-medium text-sm">Testimonials</a> */}
+          {/* <Link to="/about-us" className="hover:text-green-400">About Us</Link> */}
+          {/* <a href="#" className="block py-2 hover:text-green-500 font-medium text-sm">Contacts</a> */}
         </div>
       )}
 
       {/* Account Buttons */}
       <div className="hidden md:flex items-center space-x-4">
-        <Link to="/login" className="hover:text-green-500 font-medium text-xl">
+        <Link to="/login" className="hover:text-green-500 font-medium text-sm">
           Login
         </Link>
-        <Link to="/register" className="hover:text-green-500 font-medium text-xl">
+        <Link to="/register" className="hover:text-green-500 font-medium text-sm">
           Register For a Course
         </Link>
       </div>
