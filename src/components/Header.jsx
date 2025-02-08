@@ -123,23 +123,20 @@ const Header = () => {
               </div>
             )}
           </div>
-
-          {/* <a href="#" className="block py-2 hover:text-green-500 font-medium text-sm">Upcoming Trainings</a> */}
-          {/* <Link to="/products" className="hover:text-green-500 font-medium text-sm">Products</Link> */}
-          {/* <Link to="/e-learning" className="hover:text-green-400">E-Learning</Link> */}
-          {/* <a href="#" className="block py-2 hover:text-green-500 font-medium text-sm">Testimonials</a> */}
-          {/* <Link to="/about-us" className="hover:text-green-400">About Us</Link> */}
-          {/* <a href="#" className="block py-2 hover:text-green-500 font-medium text-sm">Contacts</a> */}
         </div>
       )}
 
       {/* Account Buttons */}
       <div className="hidden md:flex items-center space-x-4">
-        <Link to="/login" className="hover:text-green-500 font-medium text-sm">
-          Login
+        <Link to="/login">
+          <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 font-medium text-sm">
+            Login
+          </button>
         </Link>
-        <Link to="/register" className="hover:text-green-500 font-medium text-sm">
-          Register For a Course
+        <Link to="/register">
+          <button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-green-600 font-medium text-sm">
+            Register For a Course
+          </button>
         </Link>
       </div>
     </header>

@@ -28,7 +28,7 @@ const Upcomings = () => {
 
       {/* Calendar */}
       <div className="flex justify-center mt-5">
-        <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <div className="bg-gray-800 p-4 rounded-lg shadow-lg w-2/5">
           <Calendar
             onChange={setSelectedDate}
             value={selectedDate}
@@ -37,7 +37,7 @@ const Upcomings = () => {
                 ? "bg-gradient-to-r from-green-400 to-blue-500 text-black font-bold rounded-full"
                 : "text-white"
             }
-            className="rounded-lg bg-gray-700 p-3 text-white"
+            className="rounded-lg bg-gray-700 p-3 text-white w-full"
           />
         </div>
       </div>
