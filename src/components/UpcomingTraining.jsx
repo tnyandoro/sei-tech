@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import { DateTime, Info, Interval } from "luxon";
 import classnames from "classnames";
 
+// Helper function to randomly assign mode
+const getRandomMode = () => (Math.random() > 0.5 ? "Online" : "Onsite");
+
+// Fallback dummy training data
+const dummyTrainings = [
+  { course: "Fire Awareness", seats: 20, price: "£50", mode: getRandomMode(), days: 1 },
+  { course: "Emergency Procedure", seats: 15, price: "£60", mode: getRandomMode(), days: 2 },
+  { course: "Asbestos Awareness", seats: 25, price: "£70", mode: getRandomMode(), days: 1 },
+  { course: "Risk Assessment", seats: 30, price: "£80", mode: getRandomMode(), days: 2 },
+];
+
 const UpcomingTraining = () => {
   const [activeDay, setActiveDay] = useState(DateTime.local());
   const firstDayOfActiveMonth = activeDay.startOf("month");
@@ -10,17 +21,25 @@ const UpcomingTraining = () => {
 
   // Example training data structure with Mode and Number of Days
   const trainingData = {
-    "2023-10-05": [
-      { course: "React Basics", seats: 20, price: "$100", mode: "Online", days: 3 },
-      { course: "Advanced React", seats: 15, price: "$150", mode: "Onsite", days: 5 },
+    "2024-02-05": [
+      { course: "Fire Awareness", seats: 20, price: "£50", mode: getRandomMode(), days: 1 },
+      { course: "Emergency Procedure", seats: 15, price: "£60", mode: getRandomMode(), days: 2 },
     ],
-    "2023-10-10": [{ course: "Node.js Fundamentals", seats: 25, price: "$120", mode: "Online", days: 4 }],
-    "2023-10-15": [{ course: "JavaScript Mastery", seats: 30, price: "$180", mode: "Onsite", days: 6 }],
-    "2023-10-20": [{ course: "Python for Beginners", seats: 40, price: "$150", mode: "Online", days: 7 }],
-    "2023-11-05": [{ course: "Django Crash Course", seats: 20, price: "$110", mode: "Onsite", days: 4 }],
-    "2023-11-15": [{ course: "Full Stack Development", seats: 30, price: "$200", mode: "Online", days: 10 }],
-    "2023-12-01": [{ course: "Machine Learning Basics", seats: 25, price: "$170", mode: "Online", days: 5 }],
-    "2023-12-10": [{ course: "Data Science Essentials", seats: 35, price: "$190", mode: "Onsite", days: 7 }],
+    "2024-02-10": [{ course: "Asbestos Awareness", seats: 25, price: "£70", mode: getRandomMode(), days: 1 }],
+    "2024-02-15": [{ course: "Risk Assessment", seats: 30, price: "£80", mode: getRandomMode(), days: 2 }],
+    "2024-02-20": [{ course: "Fire Safety Training", seats: 40, price: "£90", mode: getRandomMode(), days: 3 }],
+
+    "2024-03-05": [{ course: "First Aid Course", seats: 20, price: "£100", mode: getRandomMode(), days: 2 }],
+    "2024-03-15": [{ course: "CPR Training", seats: 30, price: "£120", mode: getRandomMode(), days: 1 }],
+    "2024-03-20": [{ course: "Health & Safety", seats: 25, price: "£130", mode: getRandomMode(), days: 3 }],
+
+    "2024-04-01": [{ course: "Manual Handling", seats: 25, price: "£110", mode: getRandomMode(), days: 2 }],
+    "2024-04-10": [{ course: "Diversity & Inclusion", seats: 35, price: "£140", mode: getRandomMode(), days: 1 }],
+    "2024-04-15": [{ course: "Leadership Skills", seats: 30, price: "£150", mode: getRandomMode(), days: 3 }],
+
+    "2024-05-05": [{ course: "Time Management", seats: 20, price: "£100", mode: getRandomMode(), days: 2 }],
+    "2024-05-10": [{ course: "Project Management", seats: 15, price: "£160", mode: getRandomMode(), days: 3 }],
+    "2024-05-20": [{ course: "Communication Skills", seats: 30, price: "£170", mode: getRandomMode(), days: 2 }],
   };
 
   const [bookedCourses, setBookedCourses] = useState({});
@@ -30,7 +49,7 @@ const UpcomingTraining = () => {
     (_, i) => firstDayOfActiveMonth.startOf("month").plus({ day: i })
   );
 
-  const activeDayTrainings = trainingData[activeDay.toISODate()] || [];
+  const activeDayTrainings = trainingData[activeDay.toISODate()] || dummyTrainings; // Use dummy data if no trainings exist
   const upcomingTrainingsThisMonth = Object.entries(trainingData)
     .filter(([date]) => DateTime.fromISO(date).month === activeDay.month)
     .map(([date, trainings]) => ({
