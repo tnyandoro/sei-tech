@@ -3,77 +3,104 @@ import { DateTime, Info, Interval } from "luxon";
 import classnames from "classnames";
 
 const UpcomingTraining = () => {
-  // Training data (simplified from original)
+  const [activeDay, setActiveDay] = useState(DateTime.local());
+  const firstDayOfActiveMonth = activeDay.startOf("month");
+  const weekDays = Info.weekdays("short");
+  const daysInMonth = firstDayOfActiveMonth.daysInMonth;
+
+  // Example training data structure with Mode and Number of Days
   const trainingData = {
-    "2025-01-08": [
-      { course: "Fire Awareness", seats: "7", price: "£450.00" },
+    "2023-10-05": [
+      { course: "React Basics", seats: 20, price: "$100", mode: "Online", days: 3 },
+      { course: "Advanced React", seats: 15, price: "$150", mode: "Onsite", days: 5 },
     ],
-    "2025-01-09": [
-      { course: "Emergency Procedure", seats: "2", price: "£350.00" },
-    ],
-    "2025-01-14": [
-      { course: "Asbestos Awareness", seats: "10", price: "£450.00" },
-    ],
-    "2025-01-23": [
-      { course: "Risk Assessment", seats: "11", price: "£400.00" },
-    ],
+    "2023-10-10": [{ course: "Node.js Fundamentals", seats: 25, price: "$120", mode: "Online", days: 4 }],
+    "2023-10-15": [{ course: "JavaScript Mastery", seats: 30, price: "$180", mode: "Onsite", days: 6 }],
+    "2023-10-20": [{ course: "Python for Beginners", seats: 40, price: "$150", mode: "Online", days: 7 }],
+    "2023-11-05": [{ course: "Django Crash Course", seats: 20, price: "$110", mode: "Onsite", days: 4 }],
+    "2023-11-15": [{ course: "Full Stack Development", seats: 30, price: "$200", mode: "Online", days: 10 }],
+    "2023-12-01": [{ course: "Machine Learning Basics", seats: 25, price: "$170", mode: "Online", days: 5 }],
+    "2023-12-10": [{ course: "Data Science Essentials", seats: 35, price: "$190", mode: "Onsite", days: 7 }],
   };
 
-  const [activeDay, setActiveDay] = useState(DateTime.local(2025, 1, 8));
-  const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(DateTime.local(2025, 1, 1));
   const [bookedCourses, setBookedCourses] = useState({});
 
+  const daysOfMonth = Array.from(
+    { length: firstDayOfActiveMonth.plus({ month: 1 }).minus({ day: 1 }).day },
+    (_, i) => firstDayOfActiveMonth.startOf("month").plus({ day: i })
+  );
+
   const activeDayTrainings = trainingData[activeDay.toISODate()] || [];
-  const weekDays = Info.weekdays("short");
-  
-  const daysOfMonth = Interval.fromDateTimes(
-    firstDayOfActiveMonth.startOf("week"),
-    firstDayOfActiveMonth.endOf("month").endOf("week")
-  ).splitBy({ day: 1 }).map((day) => day.start);
+  const upcomingTrainingsThisMonth = Object.entries(trainingData)
+    .filter(([date]) => DateTime.fromISO(date).month === activeDay.month)
+    .map(([date, trainings]) => ({
+      date: DateTime.fromISO(date),
+      trainings,
+    }));
 
-  // Navigation functions
-  const goToPreviousMonth = () => setFirstDayOfActiveMonth(firstDayOfActiveMonth.minus({ month: 1 }));
-  const goToNextMonth = () => setFirstDayOfActiveMonth(firstDayOfActiveMonth.plus({ month: 1 }));
-  const goToToday = () => setFirstDayOfActiveMonth(DateTime.local().startOf("month"));
+  const goToPreviousMonth = () =>
+    setActiveDay(activeDay.minus({ months: 1 }));
+  const goToNextMonth = () =>
+    setActiveDay(activeDay.plus({ months: 1 }));
+  const goToToday = () => setActiveDay(DateTime.local());
 
-  const handleBook = (courseName) => {
-    setBookedCourses(prev => ({ ...prev, [courseName]: !prev[courseName] }));
+  const handleBook = (course) => {
+    setBookedCourses((prev) => ({
+      ...prev,
+      [course]: !prev[course],
+    }));
   };
 
   return (
-    <div className="mt-28 flex justify-center gap-8 font-sans">
+    <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 px-4 md:px-0">
       {/* Calendar Section */}
-      <div className="w-1/3">
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold text-gray-700">
+      <div className="w-full md:w-1/3 lg:w-1/4">
+        <div className="bg-white shadow-lg rounded-lg p-3 md:p-6">
+          {/* Calendar Header */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-2">
+            <h2 className="text-md md:text-lg font-bold text-gray-700">
               {firstDayOfActiveMonth.toFormat("MMM yyyy")}
             </h2>
-            <div className="flex gap-2">
-              <button onClick={goToPreviousMonth} className="px-3 py-1 bg-gray-200 rounded">«</button>
-              <button onClick={goToToday} className="px-3 py-1 bg-blue-500 text-white rounded">Today</button>
-              <button onClick={goToNextMonth} className="px-3 py-1 bg-gray-200 rounded">»</button>
+            <div className="flex gap-2 flex-wrap justify-center">
+              <button
+                onClick={goToPreviousMonth}
+                className="px-2 md:px-3 py-1 bg-gray-200 rounded text-sm md:text-base"
+              >
+                «
+              </button>
+              <button
+                onClick={goToToday}
+                className="px-2 md:px-3 py-1 bg-blue-500 text-white rounded text-sm md:text-base"
+              >
+                Today
+              </button>
+              <button
+                onClick={goToNextMonth}
+                className="px-2 md:px-3 py-1 bg-gray-200 rounded text-sm md:text-base"
+              >
+                »
+              </button>
             </div>
           </div>
-
           {/* Weekday Headers */}
-          <div className="grid grid-cols-7 gap-2 text-center font-semibold mb-2 text-gray-600">
+          <div className="grid grid-cols-7 gap-1 md:gap-2 text-center font-semibold mb-2 text-gray-600 text-xs md:text-sm">
             {weekDays.map((day, i) => (
               <div key={i}>{day}</div>
             ))}
           </div>
-
           {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-1 md:gap-2">
             {daysOfMonth.map((day, i) => {
               const hasTraining = trainingData[day.toISODate()];
+              const isToday = day.toISODate() === DateTime.local().toISODate();
+
               return (
                 <div
                   key={i}
                   className={classnames(
-                    "p-2 text-center rounded cursor-pointer transition-colors",
+                    "p-1 md:p-2 text-sm md:text-base text-center rounded cursor-pointer transition-colors",
                     day.month !== firstDayOfActiveMonth.month ? "text-gray-400" : "bg-gray-50",
-                    day.toISODate() === DateTime.local().toISODate() ? "bg-green-500 text-white" : "",
+                    isToday && "bg-gradient-to-br from-green-400 via-cyan-500 to-blue-500 text-white",
                     activeDay.toISODate() === day.toISODate() ? "border-2 border-blue-500" : "",
                     hasTraining ? "hover:bg-blue-200" : "hover:bg-gray-200"
                   )}
@@ -88,41 +115,114 @@ const UpcomingTraining = () => {
       </div>
 
       {/* Training List */}
-      <div className="w-2/3 bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">Upcoming Trainings</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full border border-gray-200 rounded-lg">
-            <thead className="bg-gray-50">
-              <tr className="text-gray-600 text-left">
-                <th className="p-3 border">Course</th>
-                <th className="p-3 border">Date</th>
-                <th className="p-3 border">Seats</th>
-                <th className="p-3 border">Price</th>
-                <th className="p-3 border">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {activeDayTrainings.map((training, i) => (
-                <tr key={i} className="border-b border-gray-200">
-                  <td className="p-3 text-gray-700">{training.course}</td>
-                  <td className="p-3 text-gray-600">{activeDay.toFormat("EEE MMM dd yyyy")}</td>
-                  <td className="p-3 text-gray-600">{training.seats}</td>
-                  <td className="p-3 text-gray-600">{training.price}</td>
-                  <td className="p-3">
-                    <button
-                      onClick={() => handleBook(training.course)}
-                      className={classnames(
-                        "px-4 py-2 rounded text-white font-semibold",
-                        bookedCourses[training.course] ? "bg-red-500" : "bg-green-500"
-                      )}
-                    >
-                      {bookedCourses[training.course] ? "BOOKED" : "BOOK NOW"}
-                    </button>
-                  </td>
+      <div className="w-full md:w-2/3 lg:w-3/4 bg-white shadow-lg rounded-lg p-4 md:p-6">
+        <h2 className="text-xl md:text-2xl font-bold text-gray-700 mb-4">Upcoming Trainings</h2>
+
+        {/* All Upcoming Trainings This Month */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">All Upcoming Trainings This Month:</h3>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border border-gray-200 rounded-lg">
+              <thead className="bg-gray-50">
+                <tr className="text-gray-600 text-left">
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Course</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Date</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Mode</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Days</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Seats</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Price</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {upcomingTrainingsThisMonth.length > 0 ? (
+                  upcomingTrainingsThisMonth.flatMap(({ date, trainings }) =>
+                    trainings.map((training, i) => (
+                      <tr key={`${date.toISODate()}-${i}`} className="border-b border-gray-200">
+                        <td className="p-2 md:p-3 text-gray-700 text-sm md:text-base">{training.course}</td>
+                        <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">
+                          {date.toFormat("EEE MMM dd yyyy")}
+                        </td>
+                        <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.mode}</td>
+                        <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.days}</td>
+                        <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.seats}</td>
+                        <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.price}</td>
+                        <td className="p-2 md:p-3">
+                          <button
+                            onClick={() => handleBook(training.course)}
+                            className={classnames(
+                              "px-3 py-1 md:px-4 md:py-2 rounded text-white font-semibold text-sm md:text-base",
+                              bookedCourses[training.course] ? "bg-red-500" : "bg-green-500"
+                            )}
+                          >
+                            {bookedCourses[training.course] ? "BOOKED" : "BOOK NOW"}
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="p-4 text-center text-gray-500">
+                      No upcoming trainings this month.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Active Day Trainings */}
+        <div>
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">
+            Trainings on {activeDay.toFormat("EEE MMM dd yyyy")}:{" "}
+            {activeDayTrainings.length > 0 ? null : "(No Trainings)"}
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border border-gray-200 rounded-lg">
+              <thead className="bg-gray-50">
+                <tr className="text-gray-600 text-left">
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Course</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Mode</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Days</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Seats</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Price</th>
+                  <th className="p-2 md:p-3 border text-sm md:text-base">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {activeDayTrainings.length > 0 ? (
+                  activeDayTrainings.map((training, i) => (
+                    <tr key={i} className="border-b border-gray-200">
+                      <td className="p-2 md:p-3 text-gray-700 text-sm md:text-base">{training.course}</td>
+                      <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.mode}</td>
+                      <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.days}</td>
+                      <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.seats}</td>
+                      <td className="p-2 md:p-3 text-gray-600 text-sm md:text-base">{training.price}</td>
+                      <td className="p-2 md:p-3">
+                        <button
+                          onClick={() => handleBook(training.course)}
+                          className={classnames(
+                            "px-3 py-1 md:px-4 md:py-2 rounded text-white font-semibold text-sm md:text-base",
+                            bookedCourses[training.course] ? "bg-red-500" : "bg-green-500"
+                          )}
+                        >
+                          {bookedCourses[training.course] ? "BOOKED" : "BOOK NOW"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="p-4 text-center text-gray-500">
+                      No trainings available for this date.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

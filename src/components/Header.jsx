@@ -17,128 +17,185 @@ const Header = () => {
     document.body.style.overflow = menuOpen ? 'auto' : 'hidden';
   };
 
+  const commonLinks = [
+    { to: "/upcomings", text: "Upcoming Trainings" },
+    { to: "/about-us", text: "About Us" },
+    { to: "/products", text: "Products" },
+    { to: "/e-learning", text: "E-Learning" },
+    { to: "/testimonials", text: "Testimonials" },
+    { to: "/contact-us", text: "Contact Us" },
+  ];
+
+  const trainingItems = ["CDM Awareness", "Manual Handling", "Fire Warden Course", "Abrasive Wheels", "Emergency Procedure", "Asbestos Awareness"];
+  const complianceItems = ["Fire Risk Assessments", "Health and Safety GAP Audit", "Health and Safety Procedure and Policy", "Risk Assessment Services", "Face Fit", "Site Inspections"];
+
   return (
-    <header className="fixed top-0 left-0 w-full bg-black text-white px-6 py-4 flex justify-between items-center z-50 font-poppins">
-      {/* Logo Section - Clickable to Home */}
-      <div className="flex items-center space-x-3">
+    <header className="fixed top-0 left-0 w-full bg-black text-white px-4 sm:px-6 py-4 flex justify-between items-center z-50 font-poppins">
+      {/* Logo Section */}
+      <div className="flex items-center space-x-3 flex-shrink-0">
         <Link to="/">
-          <img src={seiLogo} alt="Logo" className="h-20 cursor-pointer" />
+          <img src={seiLogo} alt="Logo" className="h-16 md:h-20 cursor-pointer" />
         </Link>
       </div>
 
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center flex-grow justify-between max-w-7xl mx-auto px-4">
+        <div className="flex space-x-4 xl:space-x-6">
+          <Link to="/" className="hover:text-green-500 font-medium text-sm">
+            Home
+          </Link>
+
+          {/* Bespoke Training Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => toggleDropdown('bespoke')}
+              className="hover:text-green-500 flex items-center font-medium text-sm"
+            >
+              Training {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
+            </button>
+            {activeDropdown === 'bespoke' && (
+              <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
+                {trainingItems.map((item) => (
+                  <a key={item} href="#" className="block px-4 py-2 hover:bg-green-500 hover:text-white text-sm">
+                    {item}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Compliance Services Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => toggleDropdown('compliance')}
+              className="hover:text-green-500 flex items-center font-medium text-sm"
+            >
+              Compliance Services {activeDropdown === 'compliance' ? <FaChevronUp /> : <FaChevronDown />}
+            </button>
+            {activeDropdown === 'compliance' && (
+              <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
+                {complianceItems.map((item) => (
+                  <a key={item} href="#" className="block px-4 py-2 hover:bg-green-500 hover:text-white text-sm">
+                    {item}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Common Links */}
+          {commonLinks.map((link) => (
+            <Link key={link.to} to={link.to} className="hover:text-green-500 font-medium text-sm">
+              {link.text}
+            </Link>
+          ))}
+        </div>
+
+        {/* Desktop Account Buttons */}
+        <div className="flex items-center space-x-4 ml-4">
+          <Link to="/login" className="hover:text-green-500 font-medium text-sm">
+            Login
+          </Link>
+          <Link to="/register">
+            <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 font-medium text-sm whitespace-nowrap">
+              Register For a Course
+            </button>
+          </Link>
+        </div>
+      </nav>
+
       {/* Mobile Menu Button */}
-      <div className="md:hidden">
+      <div className="md:hidden flex items-center space-x-4">
+        <Link to="/login" className="hover:text-green-500 text-sm">
+          Login
+        </Link>
         <button onClick={toggleMobileMenu} className="text-white text-2xl">
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex space-x-6">
-        <Link to="/" className="hover:text-green-500 font-medium text-sm">
-          Home
-        </Link>
-
-        {/* Bespoke Training */}
-        <div className="relative">
-          <button
-            onClick={() => toggleDropdown('bespoke')}
-            className="hover:text-green-500 flex items-center font-medium text-sm"
-          >
-            Training {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
-          {activeDropdown === 'bespoke' && (
-            <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
-              {["CDM Awareness", "Manual Handling", "Fire Warden Course", "Abrasive Wheels", "Emergency Procedure", "Asbestos Awareness"].map((item) => (
-                <a key={item} href="#" className="block px-4 py-2 hover:bg-green-500 hover:text-white font-medium text-lg">
-                  {item}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Compliance Services */}
-        <div className="relative">
-          <button
-            onClick={() => toggleDropdown('compliance')}
-            className="hover:text-green-500 flex items-center font-medium text-sm"
-          >
-            Compliance Services {activeDropdown === 'compliance' ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
-          {activeDropdown === 'compliance' && (
-            <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
-              {["Fire Risk Assessments", "Health and Safety GAP Audit", "Health and Safety Procedure and Policy", "Risk Assessment Services", "Face Fit", "Site Inspections"].map((item) => (
-                <a key={item} href="#" className="block px-4 py-2 hover:bg-green-500 hover:text-white font-medium text-lg">
-                  {item}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <Link to="/upcomings" className="hover:text-green-400">Upcoming Trainings</Link>
-        <Link to="/about-us" className="hover:text-green-400">About Us</Link>
-        <Link to="/products" className="hover:text-green-400">Products</Link>
-        <Link to="/e-learning" className="hover:text-green-400">E-Learning</Link>
-        <Link to="/testimonials" className="hover:text-green-400">Testimonials</Link>
-        <Link to="/contact-us" className="hover:text-green-400">Contact Us</Link>
-      </nav>
-
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-black text-white px-6 py-4 md:hidden h-screen overflow-y-auto">
-          <Link to="/" className="block py-2 hover:text-green-500 font-medium text-sm">
-            Home
-          </Link>
+        <div className="fixed inset-0 bg-black bg-opacity-90 z-40 md:hidden mt-16">
+          <div className="h-full overflow-y-auto px-6 py-4">
+            {/* Mobile Navigation Items */}
+            <div className="space-y-4">
+              <Link to="/" className="block py-2 hover:text-green-500 text-lg" onClick={toggleMobileMenu}>
+                Home
+              </Link>
 
-          {/* Bespoke Training (Mobile) */}
-          <div>
-            <button onClick={() => toggleDropdown('bespoke')} className="hover:text-green-500 flex items-center w-full font-medium text-sm">
-              Bespoke Training {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
-            </button>
-            {activeDropdown === 'bespoke' && (
-              <div className="ml-4 mt-2">
-                {["CDM Awareness", "Manual Handling", "Fire Warden Course", "Abrasive Wheels", "Emergency Procedure", "Asbestos Awareness"].map((item) => (
-                  <a key={item} href="#" className="block py-2 hover:text-green-500 font-medium text-lg">
-                    {item}
-                  </a>
-                ))}
+              {/* Bespoke Training Mobile Dropdown */}
+              <div>
+                <button 
+                  onClick={() => toggleDropdown('bespoke')}
+                  className="w-full flex justify-between items-center py-2 hover:text-green-500 text-lg"
+                >
+                  <span>Training</span>
+                  {activeDropdown === 'bespoke' ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
+                {activeDropdown === 'bespoke' && (
+                  <div className="ml-4 space-y-2">
+                    {trainingItems.map((item) => (
+                      <a 
+                        key={item} 
+                        href="#" 
+                        className="block py-2 hover:text-green-500 text-base"
+                        onClick={toggleMobileMenu}
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Compliance Services (Mobile) */}
-          <div>
-            <button onClick={() => toggleDropdown('compliance')} className="hover:text-green-500 flex items-center w-full font-medium text-sm">
-              Compliance Services {activeDropdown === 'compliance' ? <FaChevronUp /> : <FaChevronDown />}
-            </button>
-            {activeDropdown === 'compliance' && (
-              <div className="ml-4 mt-2">
-                {["Fire Risk Assessments", "Health and Safety GAP Audit", "Health and Safety Procedure and Policy", "Risk Assessment Services", "Face Fit", "Site Inspections"].map((item) => (
-                  <a key={item} href="#" className="block py-2 hover:text-green-500 font-medium text-lg">
-                    {item}
-                  </a>
-                ))}
+              {/* Compliance Services Mobile Dropdown */}
+              <div>
+                <button 
+                  onClick={() => toggleDropdown('compliance')}
+                  className="w-full flex justify-between items-center py-2 hover:text-green-500 text-lg"
+                >
+                  <span>Compliance Services</span>
+                  {activeDropdown === 'compliance' ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
+                {activeDropdown === 'compliance' && (
+                  <div className="ml-4 space-y-2">
+                    {complianceItems.map((item) => (
+                      <a 
+                        key={item} 
+                        href="#" 
+                        className="block py-2 hover:text-green-500 text-base"
+                        onClick={toggleMobileMenu}
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+
+              {/* Common Mobile Links */}
+              {commonLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="block py-2 hover:text-green-500 text-lg"
+                  onClick={toggleMobileMenu}
+                >
+                  {link.text}
+                </Link>
+              ))}
+
+              {/* Mobile Register Button */}
+              <Link to="/register" className="block w-full" onClick={toggleMobileMenu}>
+                <button className="w-full bg-green-500 text-white px-4 py-3 rounded hover:bg-green-600 font-medium text-lg mt-4">
+                  Register For a Course
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       )}
-
-      {/* Account Buttons */}
-      <div className="hidden md:flex items-center space-x-4">
-        <Link to="/login">
-          <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 font-medium text-sm">
-            Login
-          </button>
-        </Link>
-        <Link to="/register">
-          <button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-green-600 font-medium text-sm">
-            Register For a Course
-          </button>
-        </Link>
-      </div>
     </header>
   );
 };
