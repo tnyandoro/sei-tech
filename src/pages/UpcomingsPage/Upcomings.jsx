@@ -1,85 +1,150 @@
-import React, { useState } from "react";
-import Calendar from "react-calendar";
-import moment from "moment";
+import { useState, useEffect } from "react";
+import { DateTime, Info, Interval } from "luxon";
+import classnames from "classnames";
 
-const trainingData = [
-  { date: "2025-01-09", course: "Fire Awareness", seats: 7, price: 450 },
-  { date: "2025-01-10", course: "Emergency Procedure", seats: 2, price: 350 },
-  { date: "2025-01-14", course: "Asbestos Awareness", seats: 10, price: 450 },
-  { date: "2025-01-15", course: "Emergency Procedure", seats: 2, price: 350 },
-  { date: "2025-01-22", course: "Risk Assessment", seats: 11, price: 400 },
-];
+// Generate random training events
+const generateTrainingData = () => {
+  const trainingTypes = [
+    "Fire Awareness",
+    "Emergency Procedure",
+    "Asbestos Awareness",
+    "Risk Assessment",
+    "First Aid",
+    "Workplace Safety",
+    "Hazardous Material Handling",
+    "Electrical Safety",
+    "Health & Safety Compliance",
+    "Incident Investigation",
+  ];
+  
+  let data = {};
+  let startDate = DateTime.local(2025, 2, 1);
+  let endDate = DateTime.local(2025, 3, 31);
+  
+  while (startDate <= endDate) {
+    if (startDate.weekday < 6) { // Exclude weekends
+      data[startDate.toISODate()] = Array.from({ length: 10 }, () => ({
+        course: trainingTypes[Math.floor(Math.random() * trainingTypes.length)],
+        seats: Math.floor(Math.random() * 15) + 1,
+        price: `£${(Math.random() * 500 + 100).toFixed(2)}`,
+      }));
+    }
+    startDate = startDate.plus({ days: 1 });
+  }
+  return data;
+};
 
-const formatDate = (date) => moment(date).format("YYYY-MM-DD");
+const trainingData = generateTrainingData();
 
-const Upcomings = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const selectedDateStr = formatDate(selectedDate);
+const Upcoming = () => {
+  const today = DateTime.local();
+  const [activeDay, setActiveDay] = useState(null);
+  const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(today.startOf("month"));
+  const [bookedCourses, setBookedCourses] = useState({});
 
-  const filteredTrainings = trainingData.filter(
-    (t) => t.date === selectedDateStr
-  );
+  const activeDayMeetings = trainingData[activeDay?.toISODate()] || [];
+  const weekDays = Info.weekdays("short");
+  const daysOfMonth = Interval.fromDateTimes(
+    firstDayOfActiveMonth.startOf("week"),
+    firstDayOfActiveMonth.endOf("month").endOf("week")
+  )
+    .splitBy({ day: 1 })
+    .map((day) => day.start);
+
+  const goToPreviousMonth = () => setFirstDayOfActiveMonth(firstDayOfActiveMonth.minus({ month: 1 }));
+  const goToNextMonth = () => setFirstDayOfActiveMonth(firstDayOfActiveMonth.plus({ month: 1 }));
+  const goToToday = () => setFirstDayOfActiveMonth(today.startOf("month"));
+
+  const handleBook = (courseName) => {
+    setBookedCourses((prev) => ({
+      ...prev,
+      [courseName]: !prev[courseName], // Toggle booked state
+    }));
+  };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-5">
-      <h2 className="text-2xl font-bold text-center text-green-400">
-        📆 Upcoming Training Events
-      </h2>
-
+    <div className="mt-28 flex flex-row justify-center gap-8">
       {/* Calendar */}
-      <div className="flex justify-center mt-5">
-        <div className="bg-gray-800 p-4 rounded-lg shadow-lg w-2/5">
-          <Calendar
-            onChange={setSelectedDate}
-            value={selectedDate}
-            tileClassName={({ date }) =>
-              formatDate(date) === formatDate(new Date())
-                ? "bg-gradient-to-r from-green-400 to-blue-500 text-black font-bold rounded-full"
-                : "text-white"
-            }
-            className="rounded-lg bg-gray-700 p-3 text-white w-full"
-          />
+      <div className="calendar-container w-1/3">
+        <div className="calendar bg-white shadow-lg rounded-lg p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-bold">
+              {firstDayOfActiveMonth.monthShort}, {firstDayOfActiveMonth.year}
+            </h2>
+            <div className="flex gap-2">
+              <button onClick={goToPreviousMonth} className="px-3 py-1 bg-gray-300 rounded">«</button>
+              <button onClick={goToToday} className="px-3 py-1 bg-blue-500 text-white rounded">Today</button>
+              <button onClick={goToNextMonth} className="px-3 py-1 bg-gray-300 rounded">»</button>
+            </div>
+          </div>
+
+          {/* Weekdays */}
+          <div className="grid grid-cols-7 gap-2 text-center font-semibold mb-2">
+            {weekDays.map((weekDay, index) => (
+              <div key={index} className="text-gray-700">{weekDay}</div>
+            ))}
+          </div>
+
+          {/* Calendar Days */}
+          <div className="grid grid-cols-7 gap-2">
+            {daysOfMonth.map((dayOfMonth, index) => (
+              <div
+                key={index}
+                className={classnames(
+                  "p-3 text-center rounded cursor-pointer transition",
+                  dayOfMonth.toISODate() === today.toISODate() ? "bg-green-500 text-white" : "",
+                  dayOfMonth.month !== firstDayOfActiveMonth.month ? "text-gray-400" : "bg-gray-100 hover:bg-blue-200",
+                  activeDay?.toISODate() === dayOfMonth.toISODate() ? "border border-blue-500" : ""
+                )}
+                onClick={() => setActiveDay(dayOfMonth)}
+              >
+                {dayOfMonth.day}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Training List */}
-      <div className="mt-6">
-        <h3 className="text-xl font-semibold text-center text-blue-400">
-          🗓️ Trainings on {moment(selectedDate).format("dddd, MMM D, YYYY")}
-        </h3>
-        {filteredTrainings.length > 0 ? (
-          <div className="mt-4 mx-auto w-full max-w-4xl">
-            <table className="w-full border-collapse text-center bg-gray-800 rounded-lg overflow-hidden">
-              <thead className="bg-gray-700 text-green-300">
-                <tr>
-                  <th className="p-3">Course</th>
-                  <th className="p-3">Seats</th>
-                  <th className="p-3">Price</th>
-                  <th className="p-3">Action</th>
+      <div className="w-2/3 bg-white shadow-lg rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-gray-700 mb-4">Upcoming Trainings</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-300 rounded-lg">
+            <thead>
+              <tr className="bg-gray-100 text-gray-700 text-left">
+                <th className="p-3 border">Course</th>
+                <th className="p-3 border">Date</th>
+                <th className="p-3 border">Seats</th>
+                <th className="p-3 border">Price</th>
+                <th className="p-3 border">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {activeDayMeetings.map((training, index) => (
+                <tr key={index} className="border text-gray-700">
+                  <td className="p-3 border">{training.course}</td>
+                  <td className="p-3 border">{activeDay?.toFormat("EEE MMM dd yyyy")}</td>
+                  <td className="p-3 border">{training.seats}</td>
+                  <td className="p-3 border">{training.price}</td>
+                  <td className="p-3 border">
+                    <button
+                      onClick={() => handleBook(training.course)}
+                      className={classnames(
+                        "px-4 py-2 rounded text-white font-semibold",
+                        bookedCourses[training.course] ? "bg-red-500" : "bg-green-500"
+                      )}
+                    >
+                      {bookedCourses[training.course] ? "BOOKED" : "BOOK NOW"}
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredTrainings.map((t, index) => (
-                  <tr key={index} className="border-b border-gray-600">
-                    <td className="p-3">{t.course}</td>
-                    <td className="p-3">{t.seats}</td>
-                    <td className="p-3">${t.price}</td>
-                    <td className="p-3">
-                      <button className="bg-green-500 px-3 py-2 rounded text-black font-semibold hover:bg-green-600">
-                        ✅ BOOK NOW
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className="text-center mt-4 text-gray-400">❌ No sessions for this date.</p>
-        )}
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Upcomings;
+export default Upcoming;
