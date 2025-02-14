@@ -2,70 +2,83 @@ import React from "react";
 import { Link } from "react-router-dom";
 import productImage from "../../assets/images/product.jpg";
 
-
-const Products = () => {
-  const products = [
-    {
-      id: 1,
-      title: "AI-Powered Safety",
-      description: "Identify and mitigate risks instantly with advanced AI technology.",
-      image: productImage,
-    },
-    {
-      id: 2,
-      title: "Compliance Monitoring",
-      description: "Ensure industry-standard adherence in real-time, effortlessly.",
-      image: productImage,
-    },
-    {
-      id: 3,
-      title: "Seamless Integration",
-      description: "Works seamlessly across platforms, enhancing connectivity.",
-      image: productImage,
-    },
-    {
-      id: 4,
-      title: "Actionable Insights",
-      description: "Make data-driven decisions for improved health and safety.",
-      image: productImage,
-    },
-  ];
-
+const Product = () => {
   return (
-    <div className="bg-black text-white min-h-screen py-12 px-6">
-      {/* Page Title */}
-      <h1 className="text-4xl font-bold text-center text-green-500 mb-8">
-        Our Products
-      </h1>
+    <div className="bg-black text-white min-h-screen px-6 md:px-20 py-12">
+      {/* Hero Section */}
+      <div className="text-center md:text-left md:flex md:justify-between md:items-center">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl md:text-5xl font-bold text-green-400">
+            Revolutionize HSE <br /> with Cutting-Edge AI Solutions
+          </h1>
+          <p className="text-gray-300 mt-4">
+            SEI TECH brings you the next generation of health and safety
+            management. Our AI-driven application empowers organizations with
+            real-time risk mitigation, compliance monitoring, and actionable
+            insights.
+          </p>
 
-      {/* Products Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {products.map((product) => (
-          <div key={product.id} className="bg-gray-900 p-6 rounded-lg shadow-lg">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
-            <h2 className="text-2xl font-semibold text-green-400 mb-2">
-              {product.title}
-            </h2>
-            <p className="text-gray-300">{product.description}</p>
-            <button className="mt-4 bg-green-500 text-black py-2 px-4 rounded-full hover:bg-green-600 transition">
-              Learn More
+          {/* Call-to-Action Buttons */}
+          <div className="mt-6 flex flex-col md:flex-row gap-4">
+            <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+              REQUEST A DEMO
+            </button>
+            <button className="border-2 border-white px-6 py-3 rounded-lg hover:bg-white hover:text-black">
+              LEARN MORE
             </button>
           </div>
-        ))}
+        </div>
+
+        {/* Right Section - Images */}
+        <div className="mt-10 md:mt-0 md:w-1/2 flex flex-col items-center md:items-end gap-6">
+          <img
+            src="https://source.unsplash.com/400x300/?construction,safety"
+            alt="Worker Safety"
+            className="rounded-lg shadow-lg"
+          />
+          <img
+            src="https://source.unsplash.com/400x300/?technology,ai"
+            alt="AI Mobile App"
+            className="rounded-lg shadow-lg"
+          />
+        </div>
       </div>
 
-      {/* Back to Home Button */}
-      <div className="text-center mt-12">
-        <Link to="/" className="text-xl text-white border border-white py-2 px-6 rounded-full hover:bg-white hover:text-black transition">
-          Back to Home
-        </Link>
+      {/* Features Section */}
+      <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <Feature
+          title="AI-Powered Safety"
+          description="Identify and mitigate risks instantly with advanced AI technology."
+          icon="⚙️"
+        />
+        <Feature
+          title="Compliance Monitoring"
+          description="Ensure industry-standard adherence in real-time, effortlessly."
+          icon="🛡️"
+        />
+        <Feature
+          title="Seamless Integration"
+          description="Works seamlessly across platforms, enhancing connectivity."
+          icon="🔗"
+        />
+        <Feature
+          title="Actionable Insights"
+          description="Make data-driven decisions for improved health and safety."
+          icon="📊"
+        />
       </div>
     </div>
   );
 };
 
-export default Products;
+const Feature = ({ title, description, icon }) => {
+  return (
+    <div className="p-6 bg-gray-900 rounded-lg text-center">
+      <div className="text-4xl">{icon}</div>
+      <h3 className="text-xl font-semibold mt-4">{title}</h3>
+      <p className="text-gray-400 mt-2">{description}</p>
+    </div>
+  );
+};
+
+export default Product;
