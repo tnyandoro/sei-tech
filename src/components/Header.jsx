@@ -26,8 +26,23 @@ const Header = () => {
     { to: "/contact-us", text: "Contact Us" },
   ];
 
-  const trainingItems = ["CDM Awareness", "Manual Handling", "Fire Warden Course", "Abrasive Wheels", "Emergency Procedure", "Asbestos Awareness"];
-  const complianceItems = ["Fire Risk Assessments", "Health and Safety GAP Audit", "Health and Safety Procedure and Policy", "Risk Assessment Services", "Face Fit", "Site Inspections"];
+  const trainingItems = [
+    { to: "/cdm-awareness", text: "CDM Awareness" },
+    { to: "/manual-handling", text: "Manual Handling" },
+    { to: "/fire-warden-course", text: "Fire Warden Course" },
+    { to: "/abrasive-wheels-training", text: "Abrasive Wheels Training" },
+    { to: "/emergency-evacuation-training", text: "Emergency Evacuation Training" },
+    { to: "/asbestos-awareness", text: "Asbestos Awareness" }
+  ];
+
+  const complianceItems = [
+    { to: "/fire-risk-assessments", text: "Fire Risk Assessments" },
+    { to: "/health-safety-gap-audit", text: "Health and Safety GAP Audit" },
+    { to: "/health-safety-procedure", text: "Health and Safety Procedure and Policy" },
+    { to: "/risk-assessment-services", text: "Risk Assessment Services" },
+    { to: "/face-fit", text: "Face Fit" },
+    { to: "/site-inspections", text: "Site Inspections" }
+  ];
 
   return (
     <header className="fixed top-0 left-0 w-full bg-black text-white px-4 sm:px-6 py-4 flex justify-between items-center z-50 font-poppins">
@@ -56,9 +71,14 @@ const Header = () => {
             {activeDropdown === 'bespoke' && (
               <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
                 {trainingItems.map((item) => (
-                  <a key={item} href="#" className="block px-4 py-2 hover:bg-green-500 hover:text-white text-sm">
-                    {item}
-                  </a>
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="block px-4 py-2 hover:bg-green-500 hover:text-white text-sm"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    {item.text}
+                  </Link>
                 ))}
               </div>
             )}
@@ -75,9 +95,14 @@ const Header = () => {
             {activeDropdown === 'compliance' && (
               <div className="absolute left-0 bg-black text-white mt-2 py-2 w-56 rounded shadow-lg">
                 {complianceItems.map((item) => (
-                  <a key={item} href="#" className="block px-4 py-2 hover:bg-green-500 hover:text-white text-sm">
-                    {item}
-                  </a>
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="block px-4 py-2 hover:bg-green-500 hover:text-white text-sm"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    {item.text}
+                  </Link>
                 ))}
               </div>
             )}
@@ -136,14 +161,14 @@ const Header = () => {
                 {activeDropdown === 'bespoke' && (
                   <div className="ml-4 space-y-2">
                     {trainingItems.map((item) => (
-                      <a 
-                        key={item} 
-                        href="#" 
+                      <Link
+                        key={item.to}
+                        to={item.to}
                         className="block py-2 hover:text-green-500 text-base"
                         onClick={toggleMobileMenu}
                       >
-                        {item}
-                      </a>
+                        {item.text}
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -161,14 +186,14 @@ const Header = () => {
                 {activeDropdown === 'compliance' && (
                   <div className="ml-4 space-y-2">
                     {complianceItems.map((item) => (
-                      <a 
-                        key={item} 
-                        href="#" 
+                      <Link
+                        key={item.to}
+                        to={item.to}
                         className="block py-2 hover:text-green-500 text-base"
                         onClick={toggleMobileMenu}
                       >
-                        {item}
-                      </a>
+                        {item.text}
+                      </Link>
                     ))}
                   </div>
                 )}
