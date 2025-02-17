@@ -19,10 +19,15 @@ import ELearning from './pages/ElearningPage/Elearning.jsx';
 import ContactUs from './pages/ContactUsPage/ContactUs.jsx';
 import TestimonialsPage from "./pages/TestimonialsPage/Testimonials.jsx";
 import CDMAwareness from './pages/CDMAwarenessPage/CDMAwareness.jsx';
+import ManualHandlingTraining from "./pages/ManualHandling/ManualHandlingTraining.jsx";
+import FireWardenCourse from './pages/FireWardenCourse/FireWardenCourse.jsx';
+import FireRiskAssessments from './pages/FireRiskPage/FireRiskAssessment.jsx';
+import HealthAndSafetyGap from './pages/HealthAndSafetyGAPAudit/HealthAndSafetyGAPAudit.jsx';
+import HealthAndSafetyCompliance from './pages/HealthAndSafetyCompliancePage/HealthAndSafetyCompliance.jsx';
 import Upcomings from './pages/UpcomingsPage/Upcomings.jsx';
 import AbrasiveWheelsTraining from './pages/AbrasiveWheelsTrainingPage/AbrasiveWheelsTraining.jsx';
 import EmergencyEvacuationTraining from './pages/EmergencyEvacuationTrainingPage/EmergencyEvacuationTraining.jsx';
-import AsbestorsAwareness from './pages/AsbestorsPage/Asbestors.jsx';
+import AsbestosAwareness from './pages/AsbestosPage/Asbestos.jsx';
 import EnvironmentalAwarenessTraining from './pages/EnvironmentalAwarenessTraining/EnvironmentalAwarenessTraining.jsx';
 import './styles/input.css';
 
@@ -45,7 +50,7 @@ function App() {
               <ExpertServices />
               <BookACourse />
               <UpcomingTraining />
-              <Testimonials />  {/* ✅ Component for home page */}
+              <Testimonials /> 
               <TrainingCourses />
             </>
           } 
@@ -62,10 +67,14 @@ function App() {
         <Route path="/upcomings" element={<Upcomings />} />
         
         <Route path="/cdm-awareness" element={<CDMAwareness />} />
-        {/* <Route path="/fire-warden-course" element={<FireWardenCourse />} /> */}
+        <Route path="/manual-handling-training" element={<ManualHandlingTraining />} />
+        <Route path="/fire-warden-course" element={<FireWardenCourse />} />
+        <Route path="/fire-risk-assessments" element={<FireRiskAssessments />} />
         <Route path="/abrasive-wheels-training" element={<AbrasiveWheelsTraining />} />
         <Route path="/emergency-evacuation-training" element={<EmergencyEvacuationTraining />} />
-        <Route path="/asbestors-awareness" element={<AsbestorsAwareness />} />
+        <Route path="/asbestos-awareness" element={<AsbestosAwareness />} />
+        <Route path="/health-safety-gap-audit" element={<HealthAndSafetyGap />} />
+        <Route path="/health-safety-procedure" element={<HealthAndSafetyCompliance />} />
         <Route path="/environmental-awareness-training" element={<EnvironmentalAwarenessTraining />} />
       </Routes>
       <Footer />

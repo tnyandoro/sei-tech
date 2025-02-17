@@ -28,7 +28,7 @@ const Header = () => {
 
   const trainingItems = [
     { to: "/cdm-awareness", text: "CDM Awareness" },
-    { to: "/manual-handling", text: "Manual Handling" },
+    { to: "/manual-handling-training", text: "Manual Handling Training" },
     { to: "/fire-warden-course", text: "Fire Warden Course" },
     { to: "/abrasive-wheels-training", text: "Abrasive Wheels Training" },
     { to: "/emergency-evacuation-training", text: "Emergency Evacuation Training" },

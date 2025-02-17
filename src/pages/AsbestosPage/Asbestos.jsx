@@ -1,6 +1,6 @@
 import React from "react";
 
-const AsbestorsAwareness = () => {
+const AsbestosAwareness = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6">
       <div className="max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -64,4 +64,4 @@ const AsbestorsAwareness = () => {
   );
 };
 
-export default AsbestorsAwareness;
+export default AsbestosAwareness;
