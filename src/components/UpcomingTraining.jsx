@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DateTime, Info, Interval } from "luxon";
 import classnames from "classnames";
+import * as XLSX from "xlsx";
 
 // Helper function to randomly assign mode
 const getRandomMode = () => (Math.random() > 0.5 ? "Online" : "Onsite");

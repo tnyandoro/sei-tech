@@ -74,7 +74,7 @@ function App() {
         <Route path="/emergency-evacuation-training" element={<EmergencyEvacuationTraining />} />
         <Route path="/asbestos-awareness" element={<AsbestosAwareness />} />
         <Route path="/health-safety-gap-audit" element={<HealthAndSafetyGap />} />
-        <Route path="/health-safety-procedure" element={<HealthAndSafetyCompliance />} />
+        <Route path="/health-safety-compliance" element={<HealthAndSafetyCompliance />} />
         <Route path="/environmental-awareness-training" element={<EnvironmentalAwarenessTraining />} />
       </Routes>
       <Footer />

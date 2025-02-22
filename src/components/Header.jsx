@@ -38,7 +38,7 @@ const Header = () => {
   const complianceItems = [
     { to: "/fire-risk-assessments", text: "Fire Risk Assessments" },
     { to: "/health-safety-gap-audit", text: "Health and Safety GAP Audit" },
-    { to: "/health-safety-procedure", text: "Health and Safety Procedure and Policy" },
+    { to: "/health-safety-compliance", text: "Health and Safety Procedure and Policy" },
     { to: "/risk-assessment-services", text: "Risk Assessment Services" },
     { to: "/face-fit", text: "Face Fit" },
     { to: "/site-inspections", text: "Site Inspections" }
