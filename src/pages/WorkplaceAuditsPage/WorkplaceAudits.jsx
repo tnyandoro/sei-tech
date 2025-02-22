@@ -3,7 +3,7 @@ import React from 'react';
 
 const WorkplaceAudits = () => {
     return (
-        <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
+        <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6 pt-24 md:pt-28">
             <Navbar />
             <div className="max-w-3xl bg-gray-800 p-8 rounded-lg shadow-lg mt-6">
                 <h1 className="text-green-400 text-2xl font-bold text-center mb-4">🏢 Workplace Audits</h1>
