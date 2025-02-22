@@ -29,6 +29,9 @@ import AbrasiveWheelsTraining from './pages/AbrasiveWheelsTrainingPage/AbrasiveW
 import EmergencyEvacuationTraining from './pages/EmergencyEvacuationTrainingPage/EmergencyEvacuationTraining.jsx';
 import AsbestosAwareness from './pages/AsbestosPage/Asbestos.jsx';
 import EnvironmentalAwarenessTraining from './pages/EnvironmentalAwarenessTraining/EnvironmentalAwarenessTraining.jsx';
+import RiskAssessmentServices from './pages/RiskAssessmentServicesPage/RiskAssessmentServices.jsx';
+import FaceFitTesting from './pages/FaceFitTestingPage/FaceFitTesting.jsx';
+import SiteInspections from './pages/SiteInspectionsPage/SiteInspections.jsx';
 import './styles/input.css';
 
 function App() {
@@ -76,6 +79,9 @@ function App() {
         <Route path="/health-safety-gap-audit" element={<HealthAndSafetyGap />} />
         <Route path="/health-safety-compliance" element={<HealthAndSafetyCompliance />} />
         <Route path="/environmental-awareness-training" element={<EnvironmentalAwarenessTraining />} />
+        <Route path="/risk-assessment-services" element={<RiskAssessmentServices />} />
+        <Route path="/face-fit" element={<FaceFitTesting />} />
+        <Route path="/site-inspections" element={<SiteInspections />} />
       </Routes>
       <Footer />
     </Router>
