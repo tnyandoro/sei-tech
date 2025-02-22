@@ -3,7 +3,6 @@ import React from "react";
 const HealthAndSafetyCompliance = () => {
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col p-6 pt-24 md:pt-28">
-      <Navbar />
 
       {/* Main Content */}
       <div className="flex-grow flex items-center justify-center p-6">
