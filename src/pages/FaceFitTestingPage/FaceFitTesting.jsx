@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingForm from '../../components/BookingForm'; // Update path as needed
 
 const FaceFitTesting = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col p-6 pt-24 md:pt-28">
-
       {/* Main Content */}
       <div className="flex-grow flex items-center justify-center p-6">
         <div className="max-w-3xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -57,8 +62,26 @@ const FaceFitTesting = () => {
             To ensure compliance, we offer **on-site Face Fit Testing**, providing convenience and professionalism to meet 
             your organization's needs.
           </p>
+
+          {/* Book Now Button */}
+          <div className="flex justify-center mt-8">
+            <button 
+              onClick={openModal}
+              className="bg-green-500 px-6 py-3 rounded-lg text-white hover:bg-green-600 transition-colors duration-200"
+            >
+              Book Now
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Booking Form Modal */}
+      {isModalOpen && (
+        <BookingForm 
+          course="Face Fit Testing" 
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

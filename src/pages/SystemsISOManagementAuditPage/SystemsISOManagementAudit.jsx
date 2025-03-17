@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingForm from '../../components/BookingForm';
 
 const SystemsISOManagementAudit = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6 pt-24 md:pt-28">
       <div className="max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -49,7 +55,25 @@ const SystemsISOManagementAudit = () => {
           Annual internal audits are required for ISO-certified management systems. Our cost-effective internal 
           auditing services ensure compliance and operational excellence.
         </p>
+
+        {/* Book Now Button */}
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={openModal}
+            className="bg-green-500 px-6 py-3 rounded-lg text-white hover:bg-green-600 transition-colors duration-200"
+          >
+            Book Now
+          </button>
+        </div>
       </div>
+
+      {/* Booking Form Modal */}
+      {isModalOpen && (
+        <BookingForm 
+          course="Systems/ISO Management Audit" 
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

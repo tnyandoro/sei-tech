@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingForm from '../../components/BookingForm';
 
 const FireWardenCourse = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6 pt-24 md:pt-28">
       <div className="max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -50,6 +56,24 @@ const FireWardenCourse = () => {
           At SEI.TECH International, our Fire Warden Course integrates expert knowledge with cutting-edge AI tools to deliver
           impactful training. Ensure your workplace is prepared for fire emergencies with our trusted programs.
         </p>
+
+        {/* Book Now Button */}
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={openModal}
+            className="bg-green-500 px-6 py-3 rounded-lg text-white hover:bg-green-600 transition-colors duration-200"
+          >
+            Book Now
+          </button>
+        </div>
+
+        {/* Booking Form Modal */}
+        {isModalOpen && (
+          <BookingForm 
+            course="Fire Warden Course" 
+            onClose={closeModal}
+          />
+        )}
       </div>
     </div>
   );

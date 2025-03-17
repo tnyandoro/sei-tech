@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingForm from '../../components/BookingForm'; // Update path as needed
 
 const FireRiskAssessment = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col p-6 pt-24 md:pt-28">
       {/* Main Content */}
@@ -14,7 +20,7 @@ const FireRiskAssessment = () => {
             our comprehensive **Fire Risk Assessment** services.
           </p>
 
-          {/* What Is a Fire Risk Assessment? */}
+          {/* Existing content remains unchanged */}
           <h2 className="text-red-400 text-xl font-semibold mt-6 mb-3">📋 What Is a Fire Risk Assessment?</h2>
           <p className="text-gray-300 mb-4">
             A **Fire Risk Assessment** is a legal requirement under fire safety laws across the UK. It involves 
@@ -22,7 +28,6 @@ const FireRiskAssessment = () => {
             environment.
           </p>
 
-          {/* Legal Requirements */}
           <h2 className="text-red-400 text-xl font-semibold mt-6 mb-3">⚖️ Legal Requirements</h2>
           <p className="text-gray-300 mb-2">Fire safety obligations are governed by the following regulations:</p>
           <ul className="list-disc list-inside text-gray-300 mb-4">
@@ -34,7 +39,6 @@ const FireRiskAssessment = () => {
             High-risk workplaces, particularly those involving **dangerous substances**, must follow **DSEAR & HSE guidance L138**.
           </p>
 
-          {/* Who Needs a Fire Risk Assessment? */}
           <h2 className="text-red-400 text-xl font-semibold mt-6 mb-3">🏢 Who Needs a Fire Risk Assessment?</h2>
           <p className="text-gray-300 mb-2">
             Fire Risk Assessments are required for a wide range of properties and organizations, including:
@@ -46,7 +50,6 @@ const FireRiskAssessment = () => {
             <li>Care homes, pubs, and HMOs (Houses in Multiple Occupation).</li>
           </ul>
 
-          {/* What We Do */}
           <h2 className="text-red-400 text-xl font-semibold mt-6 mb-3">🔍 What We Do</h2>
           <p className="text-gray-300 mb-2">Our professional Fire Risk Assessment services include:</p>
           <ul className="list-disc list-inside text-gray-300 mb-4">
@@ -56,7 +59,6 @@ const FireRiskAssessment = () => {
             <li>📢 **Compliance Communication** – Educate employees and occupants on fire safety measures.</li>
           </ul>
 
-          {/* Why Compliance Matters */}
           <h2 className="text-red-400 text-xl font-semibold mt-6 mb-3">⚠️ Why Compliance Matters</h2>
           <p className="text-gray-300 mb-2">Failure to comply with fire safety regulations can lead to:</p>
           <ul className="list-disc list-inside text-gray-300 mb-4">
@@ -68,19 +70,31 @@ const FireRiskAssessment = () => {
             The **Approved Codes of Practice (ACOPs)** for fire safety provide essential guidelines to meet legal obligations.
           </p>
 
-          {/* Call to Action */}
           <h2 className="text-red-400 text-xl font-semibold mt-6 mb-3">✅ Let’s Ensure Your Safety</h2>
           <p className="text-gray-300 mb-4">
             Fire safety is a **critical responsibility**. Partner with us to ensure compliance, effective emergency 
             planning, and a safer environment for everyone.
           </p>
+
+          {/* Book Now Button */}
           <div className="text-center">
-            <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded transition">
+            <button 
+              onClick={openModal}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded transition-colors duration-200"
+            >
               🔥 Book Now
             </button>
           </div>
         </div>
       </div>
+
+      {/* Booking Form Modal */}
+      {isModalOpen && (
+        <BookingForm 
+          course="Fire Risk Assessments" 
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

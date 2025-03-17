@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingForm from '../../components/BookingForm'; // Update path as needed
 
 const EnvironmentalAwarenessTraining = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6 pt-24 md:pt-28">
       <div className="max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -50,6 +56,24 @@ const EnvironmentalAwarenessTraining = () => {
           At SEI.TECH International, we use advanced AI technology and expert guidance to create impactful training programs. 
           Our Environmental Awareness Training is designed to align with your organization’s sustainability goals while driving real-world change.
         </p>
+
+        {/* Book Now Button */}
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={openModal}
+            className="bg-green-500 px-6 py-3 rounded-lg text-white hover:bg-green-600 transition-colors duration-200"
+          >
+            Book Now
+          </button>
+        </div>
+
+        {/* Booking Form Modal */}
+        {isModalOpen && (
+          <BookingForm 
+            course="Environmental Awareness Training" 
+            onClose={closeModal}
+          />
+        )}
       </div>
     </div>
   );

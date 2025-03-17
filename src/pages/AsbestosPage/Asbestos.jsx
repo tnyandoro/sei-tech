@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import BookingForm from "../../components/BookingForm";
 
 const AsbestosAwareness = () => {
+  const [showForm, setShowForm] = useState(false);
+
+  const handleOpenBooking = () => {
+    setShowForm(true);
+  };
+
+  const handleCloseBooking = () => {
+    setShowForm(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6 pt-24 md:pt-28">
       <div className="max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -10,7 +21,6 @@ const AsbestosAwareness = () => {
         <p className="text-gray-300 text-center mb-6">
           Protect yourself and your team by gaining critical knowledge about asbestos, its dangers,
           and the necessary precautions to work safely in environments where it may be present.
-          This course ensures you are well-informed and compliant with health and safety regulations.
         </p>
 
         {/* Course Highlights */}
@@ -59,7 +69,20 @@ const AsbestosAwareness = () => {
           Participants will receive a certificate of completion, demonstrating their understanding of
           asbestos hazards and compliance with industry standards.
         </p>
+
+        {/* Book Now Button */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={handleOpenBooking}
+            className="bg-green-500 px-6 py-2 rounded-lg text-black font-semibold hover:bg-green-600"
+          >
+            Book Now
+          </button>
+        </div>
       </div>
+
+      {/* Booking Form Modal */}
+      {showForm && <BookingForm course="Asbestos Awareness" onClose={handleCloseBooking} />}
     </div>
   );
 };

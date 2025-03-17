@@ -32,6 +32,14 @@ import EnvironmentalAwarenessTraining from './pages/EnvironmentalAwarenessTraini
 import RiskAssessmentServices from './pages/RiskAssessmentServicesPage/RiskAssessmentServices.jsx';
 import FaceFitTesting from './pages/FaceFitTestingPage/FaceFitTesting.jsx';
 import SiteInspections from './pages/SiteInspectionsPage/SiteInspections.jsx';
+import IncidentInvestigation from './pages/IncidentInvestigationCourse/IncidentInvestigationCourse.jsx';
+import WorkingAtHeight from './pages/WorkingAtHeight/WorkingAtHeight.jsx';
+import LadderInspection from './pages/LadderInspectionPage/LadderInspection.jsx';
+import WorkplaceAudits from './pages/WorkplaceAudits/WorkplaceAudits.jsx';
+import LegionellaRiskAssessment from './pages/LegionellaRiskAssessmentPage/LegionellaRiskAssessment.jsx';
+import SystemsIsomanagement from './pages/SystemsISOManagementAuditPage/SystemsISOManagementAudit.jsx';
+import DSEAssessments from './pages/DSEAssessments/DseAssessments.jsx';
+// import { useForm, ValidationError } from '@formspree/react';
 import './styles/input.css';
 
 function App() {
@@ -75,6 +83,8 @@ function App() {
         <Route path="/fire-risk-assessments" element={<FireRiskAssessments />} />
         <Route path="/abrasive-wheels-training" element={<AbrasiveWheelsTraining />} />
         <Route path="/emergency-evacuation-training" element={<EmergencyEvacuationTraining />} />
+        <Route path="/DSE-assessments" element={<DSEAssessments />} />
+        <Route path="/systems-iso-management" element={<SystemsIsomanagement />} />
         <Route path="/asbestos-awareness" element={<AsbestosAwareness />} />
         <Route path="/health-safety-gap-audit" element={<HealthAndSafetyGap />} />
         <Route path="/health-safety-compliance" element={<HealthAndSafetyCompliance />} />
@@ -82,6 +92,12 @@ function App() {
         <Route path="/risk-assessment-services" element={<RiskAssessmentServices />} />
         <Route path="/face-fit" element={<FaceFitTesting />} />
         <Route path="/site-inspections" element={<SiteInspections />} />
+        <Route path="/emergency-evacuation-training" element={<EmergencyEvacuationTraining />} />
+        <Route path="/incident-investigation" element={<IncidentInvestigation />} />
+        <Route path="/working-at-height" element={<WorkingAtHeight />} />
+        <Route path="/ladder-inspection" element={<LadderInspection />} />
+        <Route path="/workplace-audits" element={<WorkplaceAudits />} />
+        <Route path="/legionella-risk-assessment" element={<LegionellaRiskAssessment />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from 'react';
+import BookingForm from '../../components/BookingForm';
 
 const AbrasiveWheelsTraining = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6 pt-24 md:pt-28">
       <div className="max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
@@ -24,38 +30,28 @@ const AbrasiveWheelsTraining = () => {
         </ul>
 
         <h2 className="text-green-400 text-xl font-semibold mt-6 mb-3 text-center">
-          Who Should Take This Course?
-        </h2>
-        <ul className="text-gray-300 space-y-2">
-          <li>✅ Operators who use abrasive wheels in their daily tasks</li>
-          <li>✅ Supervisors overseeing equipment safety</li>
-          <li>✅ Maintenance teams responsible for inspecting and repairing equipment</li>
-          <li>✅ Safety officers conducting risk assessments</li>
-        </ul>
-
-        <h2 className="text-green-400 text-xl font-semibold mt-6 mb-3 text-center">
-          Key Benefits
-        </h2>
-        <ul className="text-gray-300 space-y-2">
-          <li>✅ <strong>Enhanced Safety Knowledge:</strong> Learn the best practices for handling abrasive wheels to prevent accidents and injuries.</li>
-          <li>✅ <strong>Regulatory Compliance:</strong> Ensure adherence to PUWER and other safety standards.</li>
-          <li>✅ <strong>Practical Skills:</strong> Hands-on training supported by AI-powered tools for real-world applications.</li>
-          <li>✅ <strong>Risk Mitigation:</strong> Equip yourself with the knowledge to identify hazards and implement control measures.</li>
-        </ul>
-
-        <h2 className="text-green-400 text-xl font-semibold mt-6 mb-3 text-center">
           Why Choose SEI.TECH?
         </h2>
         <p className="text-gray-300 text-center">
-          At SEI.TECH International, we combine industry expertise with advanced training methodologies to deliver impactful learning experiences. Our Abrasive Wheels course ensures you gain practical knowledge, confidence, and compliance with safety regulations.
+          At SEI.TECH International, we combine industry expertise with advanced training methodologies to deliver impactful learning experiences.
         </p>
 
-        <h2 className="text-green-400 text-xl font-semibold mt-6 mb-3 text-center">
-          Certification
-        </h2>
-        <p className="text-gray-300 text-center">
-          Upon successful completion, participants will receive a certificate demonstrating their competency in the safe use of abrasive wheels.
-        </p>
+        <div className="flex justify-center mt-8">
+          <button 
+            onClick={openModal}
+            className="bg-green-500 px-6 py-3 rounded-lg text-white hover:bg-green-600 transition-colors duration-200"
+          >
+            Book Now
+          </button>
+        </div>
+
+        {/* Modal will only render when isModalOpen is true */}
+        {isModalOpen && (
+          <BookingForm 
+            onClose={closeModal} 
+            course="Abrasive Wheels Training" 
+          />
+        )}
       </div>
     </div>
   );

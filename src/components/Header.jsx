@@ -32,7 +32,13 @@ const Header = () => {
     { to: "/fire-warden-course", text: "Fire Warden Course" },
     { to: "/abrasive-wheels-training", text: "Abrasive Wheels Training" },
     { to: "/emergency-evacuation-training", text: "Emergency Evacuation Training" },
-    { to: "/asbestos-awareness", text: "Asbestos Awareness" }
+    { to: "/asbestos-awareness", text: "Asbestos Awareness" },
+    { to: "/risk-assessment-services", text: "Risk Assessment Services" },
+    { to: "/incident-investigation", text: "Incident Investigation" },
+    { to: "/working-at-height", text: "Working at Height" },
+    { to: "/environmental-awareness-training", text: "Environmental Awareness Training" },
+    { to: "/ladder-inspection", text: "Ladder Inspection" },
+
   ];
 
   const complianceItems = [
@@ -41,7 +47,11 @@ const Header = () => {
     { to: "/health-safety-compliance", text: "Health and Safety Procedure and Policy" },
     { to: "/risk-assessment-services", text: "Risk Assessment Services" },
     { to: "/face-fit", text: "Face Fit" },
-    { to: "/site-inspections", text: "Site Inspections" }
+    { to: "/site-inspections", text: "Site Inspections" },
+    { to: "/DSE-assessments", text: "DSE Assessments" },
+    { to: "/systems-iso-management", text: "Systems/ISO Management" },
+    { to: "/Workplace-Audits", text: "Workplace Audits" },
+    { to: "/Legionella-Risk-Assessment", text: "Legionella"},
   ];
 
   return (
